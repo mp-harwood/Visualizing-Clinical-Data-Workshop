@@ -196,8 +196,6 @@ p_box <- ggplot(lab_by_visit, aes(x = TRTA, y = AVAL)) +
 p_box
 ```
 
-![](index_files/figure-commonmark/unnamed-chunk-4-1.png)
-
 ### Customize: Show Every Subject’s Value
 
 A box-and-whisker summary hides how many subjects are behind it and
@@ -215,8 +213,6 @@ p_box <- p_box +
 
 p_box
 ```
-
-![](index_files/figure-commonmark/unnamed-chunk-5-1.png)
 
 ------------------------------------------------------------------------
 
@@ -278,8 +274,6 @@ p_mean <- ggplot(visit_summary, aes(x = week_n, y = mean_chg, color = TRTA, grou
 p_mean
 ```
 
-![](index_files/figure-commonmark/unnamed-chunk-7-1.png)
-
 There are a number of customization options we can add. Not limited to
 these, we will show 1) how to add a dotted reference line, 2) change
 line type, 3) nudge points, and 4) anchor baseline on y-axis
@@ -291,8 +285,6 @@ p_mean <- p_mean +
   geom_hline(yintercept = 0, linetype = "dotted", color = "black", linewidth = 0.6)
 p_mean
 ```
-
-![](index_files/figure-commonmark/unnamed-chunk-8-1.png)
 
 ### Customize: Distinguish Treatments with Line Type
 
@@ -307,8 +299,6 @@ p_mean <- p_mean +
 
 p_mean
 ```
-
-![](index_files/figure-commonmark/unnamed-chunk-9-1.png)
 
 ### Customize: Nudge Points So They Don’t Overlap
 
@@ -329,8 +319,6 @@ p_mean <- p_mean +
 p_mean
 ```
 
-![](index_files/figure-commonmark/unnamed-chunk-10-1.png)
-
 Better at Weeks 2–12 — but now baseline is nudged apart too, even though
 all three arms are exactly 0 there by definition. Spreading out a point
 that’s supposed to be identical across arms is misleading.
@@ -350,8 +338,6 @@ p_mean <- p_mean +
   
 p_mean
 ```
-
-![](index_files/figure-commonmark/unnamed-chunk-11-1.png)
 
 ------------------------------------------------------------------------
 
@@ -403,8 +389,6 @@ create_box_plot <- function(param = "ALB", treatments = all_treatments) {
 
 create_box_plot(param = "GLUC", treatments = c("Placebo", "Xanomeline High Dose"))
 ```
-
-![](index_files/figure-commonmark/unnamed-chunk-12-1.png)
 
 ``` r
 create_meanplot <- function(param = "EOS", treatments = all_treatments) {
@@ -460,8 +444,6 @@ create_meanplot <- function(param = "EOS", treatments = all_treatments) {
 
 create_meanplot(param = "HGB")
 ```
-
-![](index_files/figure-commonmark/unnamed-chunk-13-1.png)
 
 > **Note:** These two functions are exactly
 > `create_box_plot()`/`create_meanplot()` from `functions.R`, used
