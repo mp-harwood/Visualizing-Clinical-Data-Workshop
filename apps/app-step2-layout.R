@@ -1,6 +1,6 @@
 # app-step2-layout.R
 #
-# Clinical dashboard: step 2 - add a layout
+# Clinical data dashboard: step 2 - add a layout
 
 # Load required packages
 library(shiny)
@@ -16,7 +16,7 @@ source("functions.R")
 dashboard_data <- haven::read_xpt("data/adsl.xpt")
 
 # Figure choices shown in the sidebar dropdown.
-# TEMPLATE: add an entry here for each new plot you create in functions.R
+# Add an entry here for each new plot you create in functions.R
 figure_choices <- c(
   "Lab Value by Treatment (Box Plot)"        = "box_plot",
   "Mean Change from Baseline (Line Plot)"    = "meanplot"
