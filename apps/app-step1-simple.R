@@ -9,10 +9,10 @@ library(DT)
 library(haven)
 
 # Source reusable plotting functions
-source("functions.R")
+source("../functions.R")
 
 # Load dashboard data
-dashboard_data <- haven::read_xpt("data/adsl.xpt")
+dashboard_data <- haven::read_xpt("../data/adsl.xpt")
 
 ui <- fluidPage(
   
