@@ -13,12 +13,12 @@ library(dplyr)
 library(crosstalk)
 
 # Source reusable plotting functions
-source("functions.R")
+source("../functions.R")
 
 # Load dashboard data. Wrapped in a crosstalk SharedData object, keyed by
 # USUBJID, so the table can be linked to the box plot's per-subject points
 crosstalk_group_id <- "clinical_dashboard"
-dashboard_data <- haven::read_xpt("data/adsl.xpt")
+dashboard_data <- haven::read_xpt("../data/adsl.xpt")
 dashboard_shared <- crosstalk::SharedData$new(
   dashboard_data,
   key   = ~USUBJID,
@@ -41,8 +41,8 @@ get_param_choices <- function(path) {
 }
 
 param_choices <- list(
-  box_plot = get_param_choices("data/adlbc.xpt"),
-  meanplot = get_param_choices("data/adlbh.xpt")
+  box_plot = get_param_choices("../data/adlbc.xpt"),
+  meanplot = get_param_choices("../data/adlbh.xpt")
 )
 param_defaults <- c(box_plot = "ALB", meanplot = "EOS")
 
