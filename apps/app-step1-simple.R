@@ -1,6 +1,6 @@
 # app-step1-simple.R
 #
-# Clinical dashboard: step 1- simple dashboard
+# Clinical data dashboard: step 1- simple dashboard
 
 # Load required packages
 library(shiny)
@@ -10,7 +10,6 @@ library(haven)
 
 # Source reusable plotting functions
 source("functions.R")
-
 
 # Load dashboard data
 dashboard_data <- haven::read_xpt("data/adsl.xpt")
