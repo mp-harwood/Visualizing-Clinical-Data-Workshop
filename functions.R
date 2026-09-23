@@ -20,7 +20,7 @@ all_treatments <- names(trt_colors)
 
 
 create_meanplot <- function(param = "EOS", treatments = all_treatments) {
-  adlbh <- haven::read_xpt("data/adlbh.xpt")
+  adlbh <- haven::read_xpt("../data/adlbh.xpt")
 
   keep_visits <- c("Baseline", "Week 2", "Week 4", "Week 8", "Week 12")
   nudge_vals  <- c("Placebo" = -0.3, "Xanomeline Low Dose" = 0.0, "Xanomeline High Dose" = 0.3)
@@ -76,8 +76,8 @@ create_meanplot <- function(param = "EOS", treatments = all_treatments) {
 
 
 create_box_plot <- function(param = "ALB",treatments = all_treatments, crosstalk_group = NULL) {
-  adlbc <- haven::read_xpt("data/adlbc.xpt")
-  adsl  <- haven::read_xpt("data/adsl.xpt")
+  adlbc <- haven::read_xpt("../data/adlbc.xpt")
+  adsl  <- haven::read_xpt("../data/adsl.xpt")
 
   keep_visits <- c("Baseline", "Week 2", "Week 4", "Week 8", "Week 12")
 
