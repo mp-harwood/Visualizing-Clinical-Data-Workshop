@@ -3,13 +3,6 @@
 # This file contains reusable plotting functions.
 # Keeping plotting code here separates visualisation logic
 # from the Shiny user interface and server logic.
-#
-# Each function reads its own data internally (rather than relying on
-# global variables defined by whichever app.R sources this file). Shiny
-# often evaluates app.R in its own private environment, so a plain
-# top-level `adlbh <- ...` in app.R is not guaranteed to be visible to
-# functions defined via source() here -- self-loading avoids that
-# entirely, at the small cost of re-reading the xpt files on each call.
 
 library(ggplot2)
 library(dplyr)
@@ -34,7 +27,7 @@ create_meanplot <- function(param = "EOS", treatments = all_treatments) {
   xticks      <- c(0, 2, 4, 8, 12)
 
   chg_by_visit <- adlbh |>
-    mutate(AVISIT = sub("^\\s+", "", AVISIT)) |>
+    mutate(AVISIT = sub("^\\s+", "", AVISIT)) |> # the pilot data pads AVISIT with leading spaces
     filter(PARAMCD == param) |>
     mutate(CHG = AVAL - BASE) |>
     filter(!is.na(TRTA), TRTA %in% treatments) |>
@@ -82,11 +75,7 @@ create_meanplot <- function(param = "EOS", treatments = all_treatments) {
 }
 
 
-create_box_plot <- function(
-    param = "ALB",
-    treatments = all_treatments,
-    crosstalk_group = NULL
-) {
+create_box_plot <- function(param = "ALB",treatments = all_treatments, crosstalk_group = NULL) {
   adlbc <- haven::read_xpt("data/adlbc.xpt")
   adsl  <- haven::read_xpt("data/adsl.xpt")
 
@@ -122,11 +111,6 @@ create_box_plot <- function(
     geom_point(
       aes(color = TRTA),
       position = position_jitter(width = 0.2), alpha = 0.4, size = 1, show.legend = FALSE
-    ) +
-    stat_summary(
-      fun = median, geom = "crossbar",
-      aes(linetype = "Median", color = TRTA),
-      width = 0.7, fatten = 0.5, linewidth = 1, show.legend = FALSE
     ) +
     geom_line(
       data = lab_by_visit,
