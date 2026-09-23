@@ -10,10 +10,10 @@ library(DT)
 library(haven)
 
 # Source reusable plotting functions
-source("functions.R")
+source("../functions.R")
 
 # Load dashboard data
-dashboard_data <- haven::read_xpt("data/adsl.xpt")
+dashboard_data <- haven::read_xpt("../data/adsl.xpt")
 
 # Figure choices shown in the sidebar dropdown.
 # Add an entry here for each new plot you create in functions.R
