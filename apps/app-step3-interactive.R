@@ -1,7 +1,6 @@
 # app-step3-interactive.R
 #
-# Clinical dashboard: step 3- add interactive components
-
+# Clinical data dashboard: step 3- add interactive components
 
 # Load required packages
 library(shiny)
@@ -87,7 +86,7 @@ ui <- page_sidebar(
     p(
       "Tip: on the box plot, click a point to highlight that subject's",
       "row(s) in the table below. Double-click the plot to reset it, and use the",
-      strong("Clear Selection"), "above, to reset the table.",
+      strong("Clear Selection"), "above to reset the table.",
       class = "text-muted small"
     )
   ),
