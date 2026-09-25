@@ -714,16 +714,21 @@ than hardcoded in the UI.
 
 ``` r
 # Sidebar additions
+#selectInput()...
 uiOutput("param_ui"),
 checkboxGroupInput(
   "treatments", "Treatment groups",
   choices = all_treatments, selected = all_treatments
 )
+#hr(),
+#p(...
 ```
 
 ``` r
 # Build lab-parameter choices from each dataset's PARAMCD/PARAM pairs,
 # read once at startup rather than on every plot render.
+
+#figure_choices <- c(...
 get_param_choices <- function(path) {
   df <- haven::read_xpt(path) |>
     dplyr::distinct(PARAMCD, PARAM) |>
@@ -736,8 +741,10 @@ param_choices <- list(
   meanplot = get_param_choices("data/adlbh.xpt")
 )
 param_defaults <- c(box_plot = "ALB", meanplot = "EOS")
+#ui...
 
 # Server additions
+#server <- ...
 output$param_ui <- renderUI({
   selectInput(
     "param_choice", "Lab parameter",
@@ -758,6 +765,8 @@ output$selected_plot <- renderPlotly({
   }
   ggplotly(p)
 })
+
+#output$data_table...
 ```
 
 This is why `create_box_plot()`/`create_meanplot()` in `functions.R`
