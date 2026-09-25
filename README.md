@@ -374,7 +374,7 @@ create_box_plot <- function(param = "ALB", treatments = all_treatments) {
     facet_wrap(~ AVISIT, nrow = 1) +
     labs(x = NULL, y = param_label[1]) +
     scale_color_manual(values = trt_colors[treatments]) +
-    theme_classic(base_size = 16) +
+    theme_classic(base_size = 12) +
     theme(
       axis.text.x      = element_text(angle = 45, hjust = 1),
       axis.title       = element_text(face = "bold"),
@@ -436,7 +436,7 @@ create_meanplot <- function(param = "EOS", treatments = all_treatments) {
     scale_color_manual(values = trt_colors[treatments]) +
     scale_x_continuous(breaks = xticks, expand = c(0, 0)) +
     coord_cartesian(xlim = c(0, max(xticks) + 0.5), clip = "off") +
-    theme_classic(base_size = 16) +
+    theme_classic(base_size = 12) +
     theme(axis.title = element_text(face = "bold"), legend.position = "none")
 }
 
