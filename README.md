@@ -786,7 +786,7 @@ that DT listens for.
 
 ``` r
 library(crosstalk)
-
+# source("../functions.R")...
 crosstalk_group_id <- "clinical_dashboard"
 dashboard_shared <- crosstalk::SharedData$new(
   dashboard_data,
@@ -797,16 +797,20 @@ dashboard_shared <- crosstalk::SharedData$new(
 
 ``` r
 # functions.R: create_box_plot() gains a crosstalk_group argument.
+# lab_by_visit <- adlbc |> ...
 plot_data <- if (!is.null(crosstalk_group)) {
   crosstalk::SharedData$new(lab_by_visit, key = ~USUBJID, group = crosstalk_group)
 } else {
   lab_by_visit
 }
+#param_label <- ...
 
 p <- ggplot(plot_data, aes(x = TRTA, y = AVAL)) + ...
 ```
 
 ``` r
+#app file
+
 output$selected_plot <- renderPlotly({
   ...
   if (input$figure_choice == "box_plot") {
