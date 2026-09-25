@@ -813,8 +813,7 @@ p <- ggplot(plot_data, aes(x = TRTA, y = AVAL)) + ...
 
 ``` r
 #app file
-
-output$selected_plot <- renderPlotly({
+#server
   output$selected_plot <- renderPlotly({
     req(input$param_choice)
     validate(
