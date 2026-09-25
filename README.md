@@ -814,29 +814,29 @@ p <- ggplot(plot_data, aes(x = TRTA, y = AVAL)) + ...
 ``` r
 #app file
 #server
-  output$selected_plot <- renderPlotly({
-    req(input$param_choice)
-    validate(
-      need(length(input$treatments) > 0, "Select at least one treatment group.")
-    )
+output$selected_plot <- renderPlotly({
+  req(input$param_choice)
+  validate(
+    need(length(input$treatments) > 0, "Select at least one treatment group.")
+  )
 
-    if (input$figure_choice == "box_plot") {
-      # Per-subject points here share USUBJID with the table's key, so
-      # clicking one highlights the matching row(s) below.
-      p <- create_box_plot(
-        param           = input$param_choice,
-        treatments      = input$treatments,
-        crosstalk_group = crosstalk_group_id
-      )
-      ggplotly(p) |>
-        highlight(on = "plotly_click", off = "plotly_doubleclick", color = "#e74c3c")
-    } else {
-      # The mean-change plot shows group-level averages, not individual
-      # subjects, so it isn't linked to the table.
-      p <- create_meanplot(param = input$param_choice, treatments = input$treatments)
-      ggplotly(p)
-    }
-  })
+  if (input$figure_choice == "box_plot") {
+    # Per-subject points here share USUBJID with the table's key, so
+    # clicking one highlights the matching row(s) below.
+    p <- create_box_plot(
+      param           = input$param_choice,
+      treatments      = input$treatments,
+      crosstalk_group = crosstalk_group_id
+    )
+    ggplotly(p) |>
+      highlight(on = "plotly_click", off = "plotly_doubleclick", color = "#e74c3c")
+  } else {
+    # The mean-change plot shows group-level averages, not individual
+    # subjects, so it isn't linked to the table.
+    p <- create_meanplot(param = input$param_choice, treatments = input$treatments)
+    ggplotly(p)
+  }
+})
 
 # Crosstalk-linked tables require DT's client-side mode (server = FALSE)
 output$data_table <- renderDT({
