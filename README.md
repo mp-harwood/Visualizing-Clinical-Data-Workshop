@@ -356,10 +356,10 @@ create_box_plot <- function(param = "ALB", treatments = all_treatments) {
     filter(PARAMCD == param, is.na(ANL01FL) | ANL01FL == "Y" | ABLFL == "Y") |>
     filter(!is.na(AVAL)) |>
     left_join(adsl, by = "USUBJID", suffix = c(".adlb", ".adsl")) |>
-    filter(!is.na(TRTA), TRTA %in% treatments) |>
+    filter(!is.na(TRTA), TRTA %in% treatments) |> # This should not be hard coded as all_treatments
     filter(AVISIT %in% keep_visits) |>
     mutate(
-      TRTA   = factor(TRTA, levels = treatments),
+      TRTA   = factor(TRTA, levels = treatments), # This should not be hard coded as all_treatments
       AVISIT = factor(AVISIT, levels = keep_visits)
     )
 
@@ -398,10 +398,10 @@ create_meanplot <- function(param = "EOS", treatments = all_treatments) {
     mutate(AVISIT = sub("^\\s+", "", AVISIT)) |>
     filter(PARAMCD == param) |>
     mutate(CHG = AVAL - BASE) |>
-    filter(!is.na(TRTA), TRTA %in% treatments) |>
+    filter(!is.na(TRTA), TRTA %in% treatments) |> # This should not be hard coded as all_treatments
     filter(AVISIT %in% keep_visits) |>
     mutate(
-      TRTA = factor(TRTA, levels = treatments),
+      TRTA = factor(TRTA, levels = treatments), # This should not be hard coded as all_treatments
       week_n = case_when(
         grepl("^\\s*baseline\\s*$", AVISIT, ignore.case = TRUE) ~ 0,
         grepl("^\\s*week\\b", AVISIT, ignore.case = TRUE) ~
