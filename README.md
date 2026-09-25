@@ -147,7 +147,6 @@ param <- "ALB"
 lab_by_visit <- adlbc |>
   mutate(AVISIT = sub("^\\s+", "", AVISIT)) |>  # the pilot data pads AVISIT with leading spaces
   filter(PARAMCD == param, is.na(ANL01FL) | ANL01FL == "Y" | ABLFL == "Y") |>
-  mutate(AVAL = suppressWarnings(as.numeric(AVAL))) |>
   filter(!is.na(AVAL)) |>
   left_join(adsl, by = "USUBJID", suffix = c(".adlb", ".adsl")) |>
   filter(!is.na(TRTA), TRTA %in% all_treatments) |>
