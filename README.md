@@ -797,6 +797,9 @@ dashboard_shared <- crosstalk::SharedData$new(
 
 ``` r
 # functions.R: create_box_plot() gains a crosstalk_group argument.
+
+# add crosstalk_group = NULL to boxplot function
+
 # lab_by_visit <- adlbc |> ...
 plot_data <- if (!is.null(crosstalk_group)) {
   crosstalk::SharedData$new(lab_by_visit, key = ~USUBJID, group = crosstalk_group)
@@ -812,21 +815,29 @@ p <- ggplot(plot_data, aes(x = TRTA, y = AVAL)) + ...
 #app file
 
 output$selected_plot <- renderPlotly({
-  ...
-  if (input$figure_choice == "box_plot") {
-    # Per-subject points here share USUBJID with the table's key.
-    p <- create_box_plot(
-      param = input$param_choice, treatments = input$treatments,
-      crosstalk_group = crosstalk_group_id
+  output$selected_plot <- renderPlotly({
+    req(input$param_choice)
+    validate(
+      need(length(input$treatments) > 0, "Select at least one treatment group.")
     )
-    ggplotly(p) |>
-      highlight(on = "plotly_click", off = "plotly_doubleclick", color = "#e74c3c")
-  } else {
-    # Group-level averages have no single subject to link, so this
-    # figure isn't linked to the table.
-    ggplotly(create_meanplot(param = input$param_choice, treatments = input$treatments))
-  }
-})
+
+    if (input$figure_choice == "box_plot") {
+      # Per-subject points here share USUBJID with the table's key, so
+      # clicking one highlights the matching row(s) below.
+      p <- create_box_plot(
+        param           = input$param_choice,
+        treatments      = input$treatments,
+        crosstalk_group = crosstalk_group_id
+      )
+      ggplotly(p) |>
+        highlight(on = "plotly_click", off = "plotly_doubleclick", color = "#e74c3c")
+    } else {
+      # The mean-change plot shows group-level averages, not individual
+      # subjects, so it isn't linked to the table.
+      p <- create_meanplot(param = input$param_choice, treatments = input$treatments)
+      ggplotly(p)
+    }
+  })
 
 # Crosstalk-linked tables require DT's client-side mode (server = FALSE)
 output$data_table <- renderDT({

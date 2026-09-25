@@ -85,8 +85,7 @@ ui <- page_sidebar(
     ),
     p(
       "Tip: on the box plot, click a point to highlight that subject's",
-      "row(s) in the table below. Double-click the plot to reset it, and use the",
-      strong("Clear Selection"), "above to reset the table.",
+      "row(s) in the table below. Double-click the plot to reset it",
       class = "text-muted small"
     )
   ),
@@ -103,15 +102,6 @@ ui <- page_sidebar(
 )
 
 server <- function(input, output, session) {
-
-  # "Clear Selection" button
-  observeEvent(input$clear_selection, {
-    session$sendCustomMessage("update-client-value", list(
-      group = crosstalk_group_id,
-      name  = "selection",
-      value = character(0)
-    ))
-  })
 
   # Lab-parameter dropdown, rebuilt whenever the selected figure changes
   # so its choices always match the dataset that figure plots.
