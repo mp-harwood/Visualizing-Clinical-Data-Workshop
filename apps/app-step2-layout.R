@@ -55,11 +55,11 @@ ui <- page_sidebar(
 server <- function(input, output, session) {
 
   output$selected_plot <- renderPlot({
-    switch(
-      input$figure_choice,
-      box_plot = create_box_plot(),
-      meanplot = create_meanplot()
-    )
+    if (input$figure_choice == "box_plot") {
+      create_box_plot()
+    } else if (input$figure_choice == "meanplot") {
+      create_meanplot()
+    }
   })
 
   output$data_table <- renderDT({

@@ -639,11 +639,11 @@ ui <- page_sidebar(
 server <- function(input, output, session) {
 
   output$selected_plot <- renderPlot({
-    switch(
-      input$figure_choice,
-      box_plot = create_box_plot(),
-      meanplot = create_meanplot()
-    )
+    if (input$figure_choice == "box_plot") {
+      create_box_plot()
+    } else if (input$figure_choice == "meanplot") {
+      create_meanplot()
+    }
   })
 
   output$data_table <- renderDT({
@@ -694,11 +694,11 @@ plotlyOutput("selected_plot", height = "600px")
 
 # server: renderPlot() becomes...
 output$selected_plot <- renderPlotly({
-  p <- switch(
-    input$figure_choice,
-    box_plot = create_box_plot(),
-    meanplot = create_meanplot()
-  )
+  if (input$figure_choice == "box_plot") {
+    p <- create_box_plot()
+  } else if (input$figure_choice == "meanplot") {
+    p <- create_meanplot()
+  }
   ggplotly(p)
 })
 ```
@@ -753,11 +753,11 @@ output$selected_plot <- renderPlotly({
   validate(
     need(length(input$treatments) > 0, "Select at least one treatment group.")
   )
-  p <- switch(
-    input$figure_choice,
-    box_plot = create_box_plot(param = input$param_choice, treatments = input$treatments),
-    meanplot = create_meanplot(param = input$param_choice, treatments = input$treatments)
-  )
+  if (input$figure_choice == "box_plot") {
+    p <- create_box_plot(param = input$param_choice, treatments = input$treatments)
+  } else if (input$figure_choice == "meanplot") {
+    p <- create_meanplot(param = input$param_choice, treatments = input$treatments)
+  }
   ggplotly(p)
 })
 ```
