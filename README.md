@@ -218,7 +218,7 @@ p_box
 ## Step 3: Build a Mean Change from Baseline Plot
 
 ``` r
-keep_visits2 <- c("Baseline", "Week 2", "Week 4", "Week 8", "Week 12")
+keep_visits <- c("Baseline", "Week 2", "Week 4", "Week 8", "Week 12")
 xticks       <- c(0, 2, 4, 8, 12)
 param       <- "EOS"
 
@@ -227,7 +227,7 @@ chg_by_visit <- adlbh |>
   filter(PARAMCD == param) |>
   mutate(CHG = AVAL - BASE) |>
   filter(!is.na(TRTA), TRTA %in% all_treatments) |>
-  filter(AVISIT %in% keep_visits2) |>
+  filter(AVISIT %in% keep_visits) |>
   mutate(
     TRTA = factor(TRTA, levels = all_treatments),
     # Turn "Baseline"/"Week N" labels into a numeric study week for the x-axis
